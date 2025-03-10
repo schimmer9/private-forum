@@ -37,8 +37,6 @@ export default async function PostPage({ params }) {
         {/* ✅ 这里的 ReplyList 是 Client 组件，会自动刷新 */}
         <ReplyList postId={params.id} />
 
-        {/* ✅ ReplyForm 触发 onReplyAdded，让 ReplyList 自动刷新 */}
-        <ReplyForm postId={params.id} />
       </section>
     </div>
   )

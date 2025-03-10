@@ -12,9 +12,11 @@ export default function LoginPage() {
   const searchParams = useSearchParams()
   
   // 新增状态声明
-  const [showSuccess, setShowSuccess] = useState(
-    searchParams.get('registered') === 'true'
-  )
+  const showSuccess = searchParams.get('registered') === 'true';
+  
+  // const [showSuccess, setShowSuccess] = useState(
+  //   searchParams.get('registered') === 'true'
+  // )
 
   const handleSubmit = async (email, password) => {
     const { error } = await supabase.auth.signInWithPassword({
