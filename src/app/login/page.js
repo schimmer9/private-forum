@@ -1,22 +1,17 @@
 // src/app/login/page.js
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import AuthForm from '@/components/Auth/Form'
 import Link from 'next/link'
 
-export default function LoginPage() {
+// 将登录表单逻辑提取到子组件
+function LoginContent() {
   const [error, setError] = useState('')
   const searchParams = useSearchParams()
-  
-  // 新增状态声明
-  const showSuccess = searchParams.get('registered') === 'true';
-  
-  // const [showSuccess, setShowSuccess] = useState(
-  //   searchParams.get('registered') === 'true'
-  // )
+  const showSuccess = searchParams.get('registered') === 'true'
 
   const handleSubmit = async (email, password) => {
     const { error } = await supabase.auth.signInWithPassword({
@@ -33,7 +28,6 @@ export default function LoginPage() {
 
   return (
     <div className="max-w-md mx-auto mt-8">
-      {/* 成功提示 */}
       {showSuccess && (
         <div className="alert alert-success mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
@@ -60,5 +54,14 @@ export default function LoginPage() {
         </Link>
       </div>
     </div>
+  )
+}
+
+// 主页面组件用 Suspense 包裹
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginContent />
+    </Suspense>
   )
 }
