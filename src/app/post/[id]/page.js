@@ -1,5 +1,5 @@
 import { supabase } from '@/lib/supabase'
-import ReplyForm from '@/components/Post/Reply'
+//import ReplyForm from '@/components/Post/Reply'
 import ReplyList from '@/components/Post/ReplyList' // ✅ 新增 Client 组件
 
 export default async function PostPage({ params }) {
